@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Emsi Shot At Oyunu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one-screen bar table — header, a single tall card in the middle, big thumb buttons at the bottom */
+:root{
+  color-scheme:dark;
+  --bg:#1a0d12;
+  --bg2:#2a131c;
+  --fg:#f6e9e4;
+  --muted:#b79a9f;
+  --amber:#f4a640;
+  --line:#3f2230;
+  --ben:#e9566f;
+  --dogru:#5fb8d9;
+  --cesaret:#b46cf0;
+  --herkes:#7bd17f;
+  --emsi:#f4c542;
+  --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body:"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+html,body{height:100%}
+body{
+  background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%) fixed, var(--bg);
+  color:var(--fg);font-family:var(--body);font-size:16px;
+  -webkit-tap-highlight-color:transparent;
+}
+.app{
+  height:100%;display:flex;flex-direction:column;gap:14px;
+  max-width:480px;margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:14px;box-sizing:border-box;
+}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1;letter-spacing:-.01em}
+.logo span{color:var(--amber)}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem;font-weight:500}
+.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--amber);transition:width .3s}
+
+.stage{flex:1;min-height:0;display:flex;align-items:stretch;perspective:1200px}
+.card{
+  position:relative;flex:1;border-radius:22px;
+  background:var(--bg2);border:1px solid var(--line);
+  display:flex;flex-direction:column;padding:24px 22px;gap:18px;
+  box-shadow:0 20px 50px -20px #000;
+  --c:var(--amber);
+  overflow:hidden;
+}
+.card::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--c)}
+.card.emsi{background:linear-gradient(160deg, #3a2a0e, var(--bg2) 55%);border-color:#6b5114}
+.card.flip{animation:flip .38s ease-out}
+@keyframes flip{from{transform:rotateY(-80deg) scale(.96);opacity:.3}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.card.flip{animation:none}.bar i{transition:none}}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tag{font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--c);
+  border:1px solid var(--c);border-radius:99px;padding:5px 11px}
+.no{font-family:var(--display);font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.q{flex:1;display:flex;align-items:center;min-height:0;overflow:auto}
+.q p{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(1.6rem, 7.2vw, 2.25rem);
+  line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.rule{font-size:.95rem;color:var(--fg);background:#0003;border-radius:12px;padding:12px 14px;
+  display:flex;gap:10px;align-items:center}
+.rule b{color:var(--c)}
+.shot{font-size:1.4rem;line-height:1}
+
+.controls{display:grid;grid-template-columns:1fr 2fr;gap:10px}
+button{font:inherit;font-weight:700;border:0;border-radius:16px;padding:17px 14px;cursor:pointer;
+  color:var(--fg);background:var(--line);font-size:1rem}
+button.go{background:var(--amber);color:#2a1305;font-size:1.1rem}
+button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.4;cursor:default}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:.75rem;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--d);margin-right:6px}
+
+.hright{display:flex;align-items:center;gap:10px}
+button.fs{padding:8px 11px;border-radius:12px;font-size:1.05rem;line-height:1}
+/* start screen */
+.start{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.start h1{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem, 15vw, 4.2rem);line-height:.92;margin:0;letter-spacing:-.03em;text-wrap:balance}
+.start h1 em{font-style:normal;color:var(--amber);display:block}
+.start p{margin:0;color:var(--muted);line-height:1.5;max-width:34ch}
+.how{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.how li{display:flex;gap:10px;align-items:baseline;font-size:.95rem}
+.how li i{width:10px;height:10px;border-radius:50%;background:var(--d);flex:none;transform:translateY(1px)}
+.how li b{min-width:7.5em}
+</style>
+<style>body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="app" id="app">
+  <section class="start" id="start">
+    <h1>Emsi <em>Shot At</em></h1>
+    <p>105 kart, karışık sırayla. Sırası gelen telefonu alır, kartı yüksek sesle okur. Son kart her zaman final.</p>
+    <ul class="how">
+      <li><i style="--d:var(--ben)"></i><b>Ben Hiç</b><span>Yapan içer</span></li>
+      <li><i style="--d:var(--dogru)"></i><b>Doğruluk</b><span>Cevap ver ya da iç</span></li>
+      <li><i style="--d:var(--cesaret)"></i><b>Cesaret</b><span>Yap ya da 2 içki iç</span></li>
+      <li><i style="--d:var(--herkes)"></i><b>Herkes / Kural</b><span>Karttaki kural geçerli</span></li>
+      <li><i style="--d:var(--emsi)"></i><b>Emsi Özel</b><span>Yapan içer</span></li>
+    </ul>
+    <button class="go" id="begin">Oyunu Başlat</button>
+    <button data-fs class="fswide">⛶ Tam Ekran</button>
+  </section>
+
+  <template id="gameTpl">
+    <header>
+      <div class="logo">Emsi <span>Shot At</span></div>
+      <div class="hright"><div class="count" id="count">1 / 105</div><button class="fs" data-fs aria-label="Tam ekran">⛶</button></div>
+    </header>
+    <div class="bar"><i id="prog"></i></div>
+    <div class="stage">
+      <article class="card" id="card" aria-live="polite">
+        <div class="top"><span class="tag" id="tag"></span><span class="no" id="no"></span></div>
+        <div class="q"><p id="text"></p></div>
+        <div class="rule"><span class="shot">🥃</span><span id="rule"></span></div>
+      </article>
+    </div>
+    <div class="controls">
+      <button id="back">Geri</button>
+      <button class="go" id="next">Sonraki Kart</button>
+    </div>
+    <div class="controls" style="grid-template-columns:1fr 1fr">
+      <button id="restart">Yeniden Karıştır</button>
+      <button id="home">Ana Ekran</button>
+    </div>
+  </template>
+</div>
+
+<script>
+const BEN = [
+"Ben hiç ilk buluşmada öpüşmedim.",
+"Ben hiç eski sevgilime gece yarısı mesaj atmadım.",
+"Ben hiç aynı anda iki kişiyle flörtleşmedim.",
+"Ben hiç bir arkadaşımın eski sevgilisinden hoşlanmadım.",
+"Ben hiç halka açık bir yerde öpüşmedim.",
+"Ben hiç sevgilimin telefonunu gizlice karıştırmadım.",
+"Ben hiç birini kıskandırmak için başkasıyla flörtleşmedim.",
+"Ben hiç bir tanışma uygulamasında sohbet etmedim.",
+"Ben hiç sarhoşken itiraf ettiğim bir şeyden pişman olmadım.",
+"Ben hiç sevgilimden ayrılıp aynı hafta barışmadım.",
+"Ben hiç birinin dudağına bakarken yakalanmadım.",
+"Ben hiç sevgilime yalan söyleyip başkasıyla buluşmadım.",
+"Ben hiç arabada öpüşmedim.",
+"Ben hiç ateşli bir mesajı yanlış kişiye göndermedim.",
+"Ben hiç bir gecelik ilişki yaşamadım.",
+"Ben hiç birinden hoşlandığımı ilk ben söylemedim.",
+"Ben hiç bir partide tanıştığım biriyle öpüşmedim.",
+"Ben hiç sevgilimin arkadaşından hoşlanmadım.",
+"Ben hiç eski sevgilimle tekrar yakınlaşmadım.",
+"Ben hiç rüyamda bu masadaki birini görmedim.",
+"Ben hiç gizli bir ilişki yaşamadım.",
+"Ben hiç birine \"seni seviyorum\" deyip içimden geçirmedim.",
+"Ben hiç yatakta kahvaltı hazırlamadım.",
+"Ben hiç sevgilimle kavga edip öpücükle barışmadım.",
+"Ben hiç flört ettiğim kişinin adını yanlış söylemedim.",
+"Ben hiç sevgilimin adını yanlış söylemedim.",
+"Ben hiç birinin sevgilisi olduğunu bile bile flörtleşmedim.",
+"Ben hiç \"sadece arkadaşız\" dediğim biriyle öpüşmedim.",
+"Ben hiç eski sevgilimin yeni sevgilisini sosyal medyada araştırmadım.",
+"Ben hiç bir tatilde gizli bir aşk yaşamadım.",
+"Ben hiç sevgilim yanımdayken başkasıyla mesajlaşmadım.",
+"Ben hiç bir öpücükten sonra \"bu bir hataydı\" demedim.",
+"Ben hiç birinin dikkatini çekmek için özellikle süslenip ortama gitmedim.",
+"Ben hiç birinden ayrıldıktan bir hafta sonra yeni ilişkiye başlamadım.",
+"Ben hiç gece yarısı \"uyudun mu?\" mesajı atmadım.",
+"Ben hiç sarhoşken eski sevgilimi arayıp ağlamadım.",
+"Ben hiç sevgilimden bir sırrı yıllarca saklamadım.",
+"Ben hiç bir arkadaşımla öpüşüp ertesi gün hiçbir şey olmamış gibi davranmadım.",
+"Ben hiç telefonumdaki mesajları biri görmesin diye silmedim.",
+"Ben hiç bu masadaki birini gizlice çekici bulmadım."
+];
+const DOGRU = [
+"İlk öpücüğün nasıldı, puanın kaç?",
+"Bu masada kimi öpmek isterdin?",
+"Bir partnerde seni en çok ne çeker?",
+"En utanç verici flört anın ne?",
+"Hiç birinden hoşlandığını sakladın mı, kimdi?",
+"En romantik anın neydi?",
+"Seni en çok ne etkiler: ses mi, koku mu, bakış mı?",
+"En son kime âşık oldun?",
+"Bir ilişkide asla affetmeyeceğin şey ne?",
+"Eski sevgililerinden birini geri getirebilsen kimi seçerdin?",
+"Bu masadaki birinin en çekici özelliği ne?",
+"En uzun öpücüğün ne kadar sürdü?",
+"Fantezi buluşma mekânın neresi?",
+"Ünlü biriyle bir gece geçirebilsen kim olurdu?",
+"Sevgilinde gizlice hoşuna giden kıskançlık ne?",
+"En cesur flört hamlen neydi?",
+"Telefonundaki en son romantik mesajı oku.",
+"Hiç birini ilk görüşte arzuladın mı?",
+"Bir ilişkideki en büyük zaafın ne?",
+"Şu an aklından geçen biri var mı?"
+];
+const CESARET = [
+"Sağındaki kişinin kulağına seksi bir şey fısılda.",
+"Bir kişiye 10 saniye göz göze bak, gülme.",
+"En sevdiğin kişiye yanaktan öpücük ver.",
+"Telefonundaki son fotoğrafı herkese göster.",
+"Bir kişiye romantik bir iltifat et.",
+"Eski sevgilinin adını yüksek sesle söyle.",
+"En seksi dans hareketini 15 saniye yap.",
+"Grubun seçtiği kişiye kalp emojisi gönder.",
+"Birinin elini 1 tur boyunca tut.",
+"Grubun seçtiği kişiye 30 saniye omuz masajı yap.",
+"En ateşli bakışınla bir kişiye \"merhaba\" de.",
+"Seçtiğin bir kişiyle kollarınızı bağlayarak iç.",
+"Bir kişinin parfümünü kokla ve puan ver.",
+"Birine \"seni çekici buluyorum\" de, kim olduğunu sen seç.",
+"1 tur boyunca birinin kucağında otur.",
+"En romantik şarkıdan bir bölümü birine söyle.",
+"Gözlerin kapalı birinin yüzüne dokunup kim olduğunu tahmin et.",
+"Bir kişinin saçıyla 20 saniye oyna.",
+"Birine en iyi \"yatak odası sesinle\" bir cümle söyle.",
+"Grubun belirlediği kişiyle sarılarak fotoğraf çek."
+];
+const HERKES = [
+"Şu an bekâr olan herkes içer.",
+"İlişkisi olan herkes içer.",
+"Bu ay biriyle öpüşen herkes içer.",
+"Telefonunda eski sevgilisinin fotoğrafı olan içer.",
+"Bu masadaki birinden hoşlanmış olan sessizce içer.",
+"İlk buluşmada öpüşen herkes içer.",
+"Hiç kalbi kırılmamış olan içer (yalan yok!).",
+"Kural: Bir tur boyunca herkes birine \"aşkım\" diye hitap etmek zorunda, unutan içer.",
+"Kural: Kartı çeken kişi bir \"aşk ortağı\" seçer, o içtiğinde ortağı da içer.",
+"Kural: Kimse kendi ismini söyleyemez, söyleyen içer.",
+"Kural: Bir sonraki tura kadar herkes flörtöz konuşmak zorunda.",
+"En son öpüşen kişi iki içer.",
+"En uzun ilişkiyi yaşamış kişi dağıtır, istediğine içirir.",
+"Sevgilisinin doğum gününü bilmeyen içer.",
+"Hiç aldatılmış olan herkes içer.",
+"Bu gece flört etmeyi düşünen herkes içer.",
+"Sevgilisi yüzünden dövme yaptırmayı düşünmüş olan içer.",
+"Gözleri en güzel olana herkes oy verir, o içirir.",
+"Masadaki en romantik kişiyi seçin, o herkese birer içki dağıtır."
+];
+const FINAL = "Final: Herkes bu gecenin en ateşli itirafını yapar ya da kadehini diker! 🔥";
+const EMSI = [
+"Ben hiç 3 tur dönmedim.",
+"Ben hiç \"Çağrı göttür\" diye bağırmadım.",
+"Ben hiç sakarlık yapana \"gerizekalı\" diye tempo tutmadım.",
+"Ben hiç porno emojisi atmadım.",
+"Ben hiç bana atılan emojileri kontrol etmedim."
+];
+
+const TYPES = {
+  ben:    {tag:"Ben Hiç",        c:"var(--ben)",     rule:"<b>Yapan içer.</b>"},
+  dogru:  {tag:"Doğruluk",       c:"var(--dogru)",   rule:"<b>Cevap ver</b> ya da iç."},
+  cesaret:{tag:"Cesaret",        c:"var(--cesaret)", rule:"<b>Yap</b> ya da 2 içki iç."},
+  herkes: {tag:"Herkes / Kural", c:"var(--herkes)",  rule:"<b>Karttaki kural</b> geçerli."},
+  emsi:   {tag:"⭐ Emsi Özel",    c:"var(--emsi)",    rule:"<b>Yapan içer.</b> Emsi'den sevgilerle."},
+  final:  {tag:"Final",          c:"var(--amber)",   rule:"<b>Oyun bitti.</b> Şerefe!"}
+};
+
+let n = 0;
+const all = [];
+const add = (arr, type) => arr.forEach(t => all.push({id: ++n, type, text: t}));
+add(BEN,"ben"); add(DOGRU,"dogru"); add(CESARET,"cesaret"); add(HERKES,"herkes");
+all.push({id: ++n, type:"final", text: FINAL});      // 100
+add(EMSI,"emsi");                                    // 101+
+
+let deck = [], pos = 0;
+const $ = id => document.getElementById(id);
+
+function shuffle(){
+  const pool = all.filter(c => c.type !== "final");
+  for (let i = pool.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  deck = [...pool, all.find(c => c.type === "final")];
+  pos = 0;
+}
+
+function render(){
+  const c = deck[pos], t = TYPES[c.type], card = $("card");
+  card.style.setProperty("--c", t.c);
+  card.classList.toggle("emsi", c.type === "emsi");
+  $("tag").textContent = t.tag;
+  $("no").textContent = "#" + c.id;
+  $("text").textContent = c.text;
+  $("rule").innerHTML = t.rule;
+  $("count").textContent = (pos + 1) + " / " + deck.length;
+  $("prog").style.width = ((pos + 1) / deck.length * 100) + "%";
+  $("back").disabled = pos === 0;
+  $("next").textContent = pos === deck.length - 1 ? "Bitti 🎉" : "Sonraki Kart";
+  $("next").disabled = pos === deck.length - 1;
+  card.classList.remove("flip"); void card.offsetWidth; card.classList.add("flip");
+}
+
+function startGame(){
+  const app = $("app");
+  app.innerHTML = "";
+  app.appendChild($("gameTplStore").content.cloneNode(true));
+  shuffle(); render();
+  $("next").onclick = () => { if (pos < deck.length - 1){ pos++; render(); } };
+  $("back").onclick = () => { if (pos > 0){ pos--; render(); } };
+  $("restart").onclick = () => { shuffle(); render(); };
+  $("home").onclick = () => { app.innerHTML = ""; app.appendChild(startNode.cloneNode(true)); $("begin").onclick = startGame; syncFs(); };
+  $("card").onclick = () => $("next").click();
+}
+
+const fsEl = document.documentElement;
+const canFs = !!(fsEl.requestFullscreen || fsEl.webkitRequestFullscreen);
+const isFs = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+function syncFs(){
+  document.querySelectorAll("[data-fs]").forEach(b => {
+    b.hidden = !canFs;
+    const on = isFs();
+    b.textContent = b.classList.contains("fswide") ? (on ? "Tam Ekrandan Çık" : "⛶ Tam Ekran") : (on ? "✕" : "⛶");
+    b.setAttribute("aria-label", on ? "Tam ekrandan çık" : "Tam ekran");
+  });
+}
+async function toggleFs(){
+  try {
+    if (isFs()) await (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else await (fsEl.requestFullscreen || fsEl.webkitRequestFullscreen).call(fsEl);
+  } catch(e) {}
+  syncFs();
+}
+document.addEventListener("click", e => { if (e.target.closest("[data-fs]")) toggleFs(); });
+document.addEventListener("fullscreenchange", syncFs);
+document.addEventListener("webkitfullscreenchange", syncFs);
+const _render = render;
+render = function(){ _render(); syncFs(); };
+
+// keep templates outside #app so we can swap screens
+const tpl = $("gameTpl"); tpl.id = "gameTplStore"; document.body.appendChild(tpl);
+const startNode = $("start").cloneNode(true);
+$("begin").onclick = startGame;
+syncFs();
+document.addEventListener("keydown", e => {
+  if (!$("next")) return;
+  if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); $("next").click(); }
+  if (e.key === "ArrowLeft") $("back").click();
+});
+</script>
+</body>
+</html>
