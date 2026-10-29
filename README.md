@@ -1,6 +1,6 @@
 # Emsi Shot At
 
-Telefonda ve bilgisayarda çalışan, 105 kartlık flörtöz içki kart oyunu.
+Telefonda ve bilgisayarda çalışan, 205 kartlık flörtöz içki kart oyunu.
 
 **Oyna:** https://balcikponcik.github.io/emsishot/
 

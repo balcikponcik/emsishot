@@ -103,7 +103,7 @@ button.fs{padding:8px 11px;border-radius:12px;font-size:1.05rem;line-height:1}
 <div class="app" id="app">
   <section class="start" id="start">
     <h1>Emsi <em>Shot At</em></h1>
-    <p>105 kart, karışık sırayla. Sırası gelen telefonu alır, kartı yüksek sesle okur. Son kart her zaman final.</p>
+    <p>205 kart, karışık sırayla. Sırası gelen telefonu alır, kartı yüksek sesle okur. Son kart her zaman final.</p>
     <ul class="how">
       <li><i style="--d:var(--ben)"></i><b>Ben Hiç</b><span>Yapan içer</span></li>
       <li><i style="--d:var(--dogru)"></i><b>Doğruluk</b><span>Cevap ver ya da iç</span></li>
@@ -118,7 +118,7 @@ button.fs{padding:8px 11px;border-radius:12px;font-size:1.05rem;line-height:1}
   <template id="gameTpl">
     <header>
       <div class="logo">Emsi <span>Shot At</span></div>
-      <div class="hright"><div class="count" id="count">1 / 105</div><button class="fs" data-fs aria-label="Tam ekran">⛶</button></div>
+      <div class="hright"><div class="count" id="count">1 / 205</div><button class="fs" data-fs aria-label="Tam ekran">⛶</button></div>
     </header>
     <div class="bar"><i id="prog"></i></div>
     <div class="stage">
@@ -248,6 +248,114 @@ const HERKES = [
 "Bu gece birini öpmeyi planlayan herkes içer."
 ];
 const FINAL = "Final: Herkes en büyük fantezisini söyler ya da kadehini diker! 🔥";
+const OLD_BEN = [
+"Ben hiç ilk buluşmada öpüşmedim.",
+"Ben hiç eski sevgilime gece yarısı mesaj atmadım.",
+"Ben hiç aynı anda iki kişiyle flörtleşmedim.",
+"Ben hiç bir arkadaşımın eski sevgilisinden hoşlanmadım.",
+"Ben hiç halka açık bir yerde öpüşmedim.",
+"Ben hiç sevgilimin telefonunu gizlice karıştırmadım.",
+"Ben hiç birini kıskandırmak için başkasıyla flörtleşmedim.",
+"Ben hiç bir tanışma uygulamasında sohbet etmedim.",
+"Ben hiç sarhoşken itiraf ettiğim bir şeyden pişman olmadım.",
+"Ben hiç sevgilimden ayrılıp aynı hafta barışmadım.",
+"Ben hiç birinin dudağına bakarken yakalanmadım.",
+"Ben hiç sevgilime yalan söyleyip başkasıyla buluşmadım.",
+"Ben hiç arabada öpüşmedim.",
+"Ben hiç ateşli bir mesajı yanlış kişiye göndermedim.",
+"Ben hiç bir gecelik ilişki yaşamadım.",
+"Ben hiç birinden hoşlandığımı ilk ben söylemedim.",
+"Ben hiç bir partide tanıştığım biriyle öpüşmedim.",
+"Ben hiç sevgilimin arkadaşından hoşlanmadım.",
+"Ben hiç eski sevgilimle tekrar yakınlaşmadım.",
+"Ben hiç rüyamda bu masadaki birini görmedim.",
+"Ben hiç gizli bir ilişki yaşamadım.",
+"Ben hiç birine \"seni seviyorum\" deyip içimden geçirmedim.",
+"Ben hiç yatakta kahvaltı hazırlamadım.",
+"Ben hiç sevgilimle kavga edip öpücükle barışmadım.",
+"Ben hiç flört ettiğim kişinin adını yanlış söylemedim.",
+"Ben hiç sevgilimin adını yanlış söylemedim.",
+"Ben hiç birinin sevgilisi olduğunu bile bile flörtleşmedim.",
+"Ben hiç \"sadece arkadaşız\" dediğim biriyle öpüşmedim.",
+"Ben hiç eski sevgilimin yeni sevgilisini sosyal medyada araştırmadım.",
+"Ben hiç bir tatilde gizli bir aşk yaşamadım.",
+"Ben hiç sevgilim yanımdayken başkasıyla mesajlaşmadım.",
+"Ben hiç bir öpücükten sonra \"bu bir hataydı\" demedim.",
+"Ben hiç birinin dikkatini çekmek için özellikle süslenip ortama gitmedim.",
+"Ben hiç birinden ayrıldıktan bir hafta sonra yeni ilişkiye başlamadım.",
+"Ben hiç gece yarısı \"uyudun mu?\" mesajı atmadım.",
+"Ben hiç sarhoşken eski sevgilimi arayıp ağlamadım.",
+"Ben hiç sevgilimden bir sırrı yıllarca saklamadım.",
+"Ben hiç bir arkadaşımla öpüşüp ertesi gün hiçbir şey olmamış gibi davranmadım.",
+"Ben hiç telefonumdaki mesajları biri görmesin diye silmedim.",
+"Ben hiç bu masadaki birini gizlice çekici bulmadım."
+];
+const OLD_DOGRU = [
+"İlk öpücüğün nasıldı, puanın kaç?",
+"Bu masada kimi öpmek isterdin?",
+"Bir partnerde seni en çok ne çeker?",
+"En utanç verici flört anın ne?",
+"Hiç birinden hoşlandığını sakladın mı, kimdi?",
+"En romantik anın neydi?",
+"Seni en çok ne etkiler: ses mi, koku mu, bakış mı?",
+"En son kime âşık oldun?",
+"Bir ilişkide asla affetmeyeceğin şey ne?",
+"Eski sevgililerinden birini geri getirebilsen kimi seçerdin?",
+"Bu masadaki birinin en çekici özelliği ne?",
+"En uzun öpücüğün ne kadar sürdü?",
+"Fantezi buluşma mekânın neresi?",
+"Ünlü biriyle bir gece geçirebilsen kim olurdu?",
+"Sevgilinde gizlice hoşuna giden kıskançlık ne?",
+"En cesur flört hamlen neydi?",
+"Telefonundaki en son romantik mesajı oku.",
+"Hiç birini ilk görüşte arzuladın mı?",
+"Bir ilişkideki en büyük zaafın ne?",
+"Şu an aklından geçen biri var mı?"
+];
+const OLD_CESARET = [
+"Sağındaki kişinin kulağına seksi bir şey fısılda.",
+"Bir kişiye 10 saniye göz göze bak, gülme.",
+"En sevdiğin kişiye yanaktan öpücük ver.",
+"Telefonundaki son fotoğrafı herkese göster.",
+"Bir kişiye romantik bir iltifat et.",
+"Eski sevgilinin adını yüksek sesle söyle.",
+"En seksi dans hareketini 15 saniye yap.",
+"Grubun seçtiği kişiye kalp emojisi gönder.",
+"Birinin elini 1 tur boyunca tut.",
+"Grubun seçtiği kişiye 30 saniye omuz masajı yap.",
+"En ateşli bakışınla bir kişiye \"merhaba\" de.",
+"Seçtiğin bir kişiyle kollarınızı bağlayarak iç.",
+"Bir kişinin parfümünü kokla ve puan ver.",
+"Birine \"seni çekici buluyorum\" de, kim olduğunu sen seç.",
+"1 tur boyunca birinin kucağında otur.",
+"En romantik şarkıdan bir bölümü birine söyle.",
+"Gözlerin kapalı birinin yüzüne dokunup kim olduğunu tahmin et.",
+"Bir kişinin saçıyla 20 saniye oyna.",
+"Birine en iyi \"yatak odası sesinle\" bir cümle söyle.",
+"Grubun belirlediği kişiyle sarılarak fotoğraf çek."
+];
+const OLD_HERKES = [
+"Şu an bekâr olan herkes içer.",
+"İlişkisi olan herkes içer.",
+"Bu ay biriyle öpüşen herkes içer.",
+"Telefonunda eski sevgilisinin fotoğrafı olan içer.",
+"Bu masadaki birinden hoşlanmış olan sessizce içer.",
+"İlk buluşmada öpüşen herkes içer.",
+"Hiç kalbi kırılmamış olan içer (yalan yok!).",
+"Kural: Bir tur boyunca herkes birine \"aşkım\" diye hitap etmek zorunda, unutan içer.",
+"Kural: Kartı çeken kişi bir \"aşk ortağı\" seçer, o içtiğinde ortağı da içer.",
+"Kural: Kimse kendi ismini söyleyemez, söyleyen içer.",
+"Kural: Bir sonraki tura kadar herkes flörtöz konuşmak zorunda.",
+"En son öpüşen kişi iki içer.",
+"En uzun ilişkiyi yaşamış kişi dağıtır, istediğine içirir.",
+"Sevgilisinin doğum gününü bilmeyen içer.",
+"Hiç aldatılmış olan herkes içer.",
+"Bu gece flört etmeyi düşünen herkes içer.",
+"Sevgilisi yüzünden dövme yaptırmayı düşünmüş olan içer.",
+"Gözleri en güzel olana herkes oy verir, o içirir.",
+"Masadaki en romantik kişiyi seçin, o herkese birer içki dağıtır.",
+"Herkes bu gecenin en ateşli itirafını yapar ya da kadehini diker! 🔥"
+];
 const EMSI = [
 "Ben hiç 3 tur dönmedim.",
 "Ben hiç \"Çağrı göttür\" diye bağırmadım.",
@@ -270,7 +378,8 @@ const all = [];
 const add = (arr, type) => arr.forEach(t => all.push({id: ++n, type, text: t}));
 add(BEN,"ben"); add(DOGRU,"dogru"); add(CESARET,"cesaret"); add(HERKES,"herkes");
 all.push({id: ++n, type:"final", text: FINAL});      // 100
-add(EMSI,"emsi");                                    // 101+
+add(OLD_BEN,"ben"); add(OLD_DOGRU,"dogru"); add(OLD_CESARET,"cesaret"); add(OLD_HERKES,"herkes"); // 101-200
+add(EMSI,"emsi");                                    // 201+
 
 let deck = [], pos = 0;
 const $ = id => document.getElementById(id);
